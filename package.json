@@ -1,0 +1,22 @@
+{
+    "name": "ng-elementary-calc",
+    "version": "0.1.0",
+    "description": "a fun calculator for your elementary school kids",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "schmic/ng-elementary-calc"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "bower": "^1.7.9",
+        "browser-sync": "^2.16.0",
+        "eslint": "^3.6.1",
+        "eslint-config-angular": "^0.5.0",
+        "eslint-plugin-angular": "^1.4.1",
+        "gulp": "^3.9.1"
+    },
+    "scripts": {
+        "postinstall": "bower install"
+    }
+}
