@@ -27,7 +27,9 @@ function AppController($log, $timeout, AppConstant) {
     vm.calcResult;
     vm.calcResultIsCorrect;
     vm.currentScore;
-    vm.currentLives;
+    vm.correctCount;
+    vm.errorCount;
+    vm.maxErrorCount = 3;
 
     function getRandomInt(max) {
         var min = Math.ceil(1);
@@ -47,26 +49,30 @@ function AppController($log, $timeout, AppConstant) {
         vm.calcCorrectResult = (vm.numberOne + vm.numberTwo);
         vm.calcResultIsCorrect = vm.calcResult == vm.calcCorrectResult;
         vm.calcScore = (vm.calcBase / 10);
+        vm.calcScore = parseInt(vm.calcCorrectResult / 10);
+        vm.calcCount++;
 
         if (vm.calcResultIsCorrect) {
+            vm.correctCount++;
+            // vm.currentScore += vm.calcScore;
             vm.currentScore += vm.calcScore;
-            vm.calcBase += 2;
-            vm.calcCount++;
+            vm.currentScore = vm.currentScore;
+            vm.calcBase = 10 + (vm.correctCount * 2);
         }
         else {
-            vm.currentLives--;
+            vm.errorCount++;
         }
 
         $log.debug('calc:', vm.numberOne, vm.calcFunction, vm.numberTwo, '=', vm.calcResult);
         $log.debug('calc.correct', vm.calcResultIsCorrect);
 
-        if (vm.currentLives === 0) {
+        if (vm.errorCount >= vm.maxErrorCount) {
             showResults();
         }
-    };
+    }
 
     function showResults() {
-        $timeout(() => {
+        $timeout(function() {
             vm.calcResultIsCorrect = undefined;
             vm.showSummary = true;
         }, 5000);
@@ -83,7 +89,9 @@ function AppController($log, $timeout, AppConstant) {
         vm.calcResult;
         vm.calcResultIsCorrect;
         vm.currentScore = 0;
-        vm.currentLives = 3;
+        vm.correctCount = 0;
+        vm.errorCount = 0;
+        vm.maxErrorCount = 3;
         newCalculation();
     }
 

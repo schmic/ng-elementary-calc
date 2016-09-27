@@ -19,6 +19,7 @@
     },
     "scripts": {
         "postinstall": "bower install",
-        "start": "gulp default"
+        "start": "gulp default",
+        "gulp": "gulp"
     }
 }

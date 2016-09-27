@@ -21,7 +21,9 @@ gulp.task('dist', (done) => {
     var sources = [
         'index.*',
         'src/**/*',
-        'bower_components/angular/angular.js'
+        'bower_components/angular/angular.js',
+        'bower_components/jquery/dist/jquery.js',
+        'bower_components/bootstrap/dist/**/*'
     ]
 
     gulp.src(sources)
