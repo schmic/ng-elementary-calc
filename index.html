@@ -3,34 +3,81 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
 </head>
 
 <body ng-app="app" ng-controller="AppController as vm">
-    <div id="wrapper" ng-if="!vm.showSummary">
-        <div id="score">
-            <ul>
-                <li><span>Punktestand: {{ vm.currentScore }}</span></li>
-                <li><span>Richtige Rechnungen: {{ vm.calcCount }}</span></li>
-                <li><span>Restliche Fehlerversuche: {{ vm.currentLives }}</span></li>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                <a class="navbar-brand" href="#">Rechenspiel, Klasse 2</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" ng-click="vm.restart()">Neustart</a></li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <div class="container" id="wrapper" ng-if="!vm.showSummary">
+        <div id="score" class="jumbotron">
+            <h4>Aktuelle Wertung:</h4>
+            <ul class="nav nav-pills nav-justified">
+                <li>Punktestand: {{ vm.currentScore }}</li>
+                <li>Rechnungen: {{ vm.correctCount }} / {{ vm.calcCount }}</li>
+                <li>Fehlerversuche: {{ vm.errorCount }} / {{ vm.maxErrorCount }}</li>
             </ul>
         </div>
-        <div id="calculation" ng-if="vm.currentLives > 0">
-            <section id="form">
-                <input ng-model="vm.numberOne" value="0" type="text" name="numberOne">
-                <input ng-model="vm.calcFunction" type="text" name="calcFunction" size="1">
-                <input ng-model="vm.numberTwo" value="0" type="text" name="numberTwo">
-                <input ng-model="vm.calcResult" type="number" name="result">
-                <button ng-if="vm.calcResultIsCorrect == undefined" ng-click="vm.checkResult()">Prüfen!</button>
-            </section>
+
+        <div id="calculation">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="everything" class="col-sm-3 control-label">Deine Aufgabe:</label>
+                    <div class="col-sm-1">
+                        <p class="form-control-static">{{ vm.numberOne }}</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <p class="form-control-static">{{ vm.calcFunction }}</p>
+                        <!--<input ng-model="vm.calcFunction" type="button" class="form-control btn btn-xxx" id="calcFunction" value="{{ vm.calcFunction }}">-->
+                    </div>
+                    <div class="col-sm-1">
+                        <p class="form-control-static">{{ vm.numberTwo }}</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <p class="form-control-static">=</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <input ng-model="vm.calcResult" type="text" class="form-control" id="calcResult" placeholder="#">
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-1">
+                        <button ng-if="vm.calcResultIsCorrect == undefined" ng-click="vm.checkResult()" type="submit" class="btn btn-success">Prüfen</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div id="result" ng-if="vm.calcResultIsCorrect != undefined">
-            <div ng-if="vm.calcResultIsCorrect">
-                Super, das war richtig! Du erhälst {{ vm.calcScore }} Punkte.
+        <div class="col-sm-offset-2 col-sm-8">
+            <div id="result" ng-if="vm.calcResultIsCorrect != undefined" class="panel" ng-class="{ 'panel-success': vm.calcResultIsCorrect, 'panel-danger': !vm.calcResultIsCorrect }">
+                <div class="panel-heading">Ergebnis:</div>
+                <div class="panel-body">
+                    <p ng-if="vm.calcResultIsCorrect">
+                        Super, das war richtig! Du erhälst {{ vm.calcScore }} Punkte.
+                    </p>
+                    <p ng-if="!vm.calcResultIsCorrect">
+                        Das war leider falsch, das korrekte Ergebnis ist: {{ vm.calcCorrectResult }}
+                    </p>
+                    <button class="btn btn-info glyphicon glyphicon-play" ng-if="vm.errorCount < vm.maxErrorCount" ng-click="vm.newCalculation()"></button>
+                </div>
             </div>
-            <div ng-if="!vm.calcResultIsCorrect">
-                Das war leider falsch, das korrekte Ergebnis ist: {{ vm.calcCorrectResult }}
-            </div>
-            <button ng-if="vm.currentLives > 0" ng-click="vm.newCalculation()">Neue Rechnung</button>
         </div>
     </div>
 
@@ -38,9 +85,10 @@
         <div>
             Summary: blablabal
         </div>
-        <button ng-click="vm.restart()">Nochmal rechnen!</button>
     </div>
 
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="src/app.module.js"></script>
 </body>
