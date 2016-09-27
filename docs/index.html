@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body ng-app="app" ng-controller="AppController as vm">
+    <div id="wrapper" ng-if="!vm.showSummary">
+        <div id="score">
+            <ul>
+                <li><span>Punktestand: {{ vm.currentScore }}</span></li>
+                <li><span>Richtige Rechnungen: {{ vm.calcCount }}</span></li>
+                <li><span>Restliche Fehlerversuche: {{ vm.currentLives }}</span></li>
+            </ul>
+        </div>
+        <div id="calculation" ng-if="vm.currentLives > 0">
+            <section id="form">
+                <input ng-model="vm.numberOne" value="0" type="text" name="numberOne">
+                <input ng-model="vm.calcFunction" type="text" name="calcFunction" size="1">
+                <input ng-model="vm.numberTwo" value="0" type="text" name="numberTwo">
+                <input ng-model="vm.calcResult" type="number" name="result">
+                <button ng-if="vm.calcResultIsCorrect == undefined" ng-click="vm.checkResult()">Prüfen!</button>
+            </section>
+        </div>
+        <div id="result" ng-if="vm.calcResultIsCorrect != undefined">
+            <div ng-if="vm.calcResultIsCorrect">
+                Super, das war richtig! Du erhälst {{ vm.calcScore }} Punkte.
+            </div>
+            <div ng-if="!vm.calcResultIsCorrect">
+                Das war leider falsch, das korrekte Ergebnis ist: {{ vm.calcCorrectResult }}
+            </div>
+            <button ng-if="vm.currentLives > 0" ng-click="vm.newCalculation()">Neue Rechnung</button>
+        </div>
+    </div>
+
+    <div id="summary" ng-if="vm.showSummary">
+        <div>
+            Summary: blablabal
+        </div>
+        <button ng-click="vm.restart()">Nochmal rechnen!</button>
+    </div>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="src/app.module.js"></script>
+</body>
+
+</html>
