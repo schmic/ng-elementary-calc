@@ -28,6 +28,9 @@ AppController.$inject = [
 
 function AppController($log, $timeout, AppConstant) {
     var vm = this;
+
+    var showResultTimeout;
+
     vm.calcCount;
     vm.calcBase;
     vm.calcFunction;
@@ -84,13 +87,14 @@ function AppController($log, $timeout, AppConstant) {
     }
 
     function showResults() {
-        $timeout(function() {
+        showResultTimeout = $timeout(function() {
             vm.calcResultIsCorrect = undefined;
             vm.showSummary = true;
         }, 5000);
     }
 
     function restart() {
+        $timeout.cancel(showResultTimeout);
         vm.showSummary = false;
 
         vm.calcCount = 0;
