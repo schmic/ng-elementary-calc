@@ -34,6 +34,7 @@
             <h4>Aktuelle Wertung:</h4>
             <ul class="nav nav-pills nav-justified">
                 <li>Punktestand: {{ vm.currentScore }}</li>
+                <li>Zahlenraum: 1 - {{ vm.calcBase }}</li>
                 <li>Rechnungen: {{ vm.correctCount }} / {{ vm.calcCount }}</li>
                 <li>Fehlerversuche: {{ vm.errorCount }} / {{ vm.maxErrorCount }}</li>
             </ul>
