@@ -57,6 +57,10 @@ function AppController($log, $timeout, AppConstant) {
     }
 
     function checkResult() {
+        if (!vm.calcResult) {
+            $log.error('no result given');
+            return;
+        }
         vm.calcCorrectResult = (vm.numberOne + vm.numberTwo);
         vm.calcResultIsCorrect = vm.calcResult == vm.calcCorrectResult;
         vm.calcScore = (vm.calcBase / 10);
@@ -73,9 +77,6 @@ function AppController($log, $timeout, AppConstant) {
         else {
             vm.errorCount++;
         }
-
-        $log.debug('calc:', vm.numberOne, vm.calcFunction, vm.numberTwo, '=', vm.calcResult);
-        $log.debug('calc.correct', vm.calcResultIsCorrect);
 
         if (vm.errorCount >= vm.maxErrorCount) {
             showResults();
