@@ -1,7 +1,8 @@
 {
-    "name": "ng-elementary-calc",
-    "license": "MIT",
-    "dependencies": {
-        "angular": "^1.5.8"
-    }
+  "name": "ng-elementary-calc",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "^3.3.7"
+  }
 }
