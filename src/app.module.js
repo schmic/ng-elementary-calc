@@ -102,9 +102,3 @@ function AppController($log, $timeout, AppConstant) {
     // init ui for the first time
     restart();
 }
-
-/**
- * Ideas
- * - Bonus-Points for quick calculations -> add timer (10s downwards)
- * - Multiplier for different methods (* / % -> 1.5)
- */
