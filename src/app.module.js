@@ -9,6 +9,15 @@ angular.module('app')
     });
 
 angular.module('app')
+    .directive('focus', function focus() {
+        return {
+            link: function(scope, element) {
+                element[0].focus();
+            }
+        };
+    });
+
+angular.module('app')
     .controller('AppController', AppController);
 
 AppController.$inject = [
@@ -43,6 +52,8 @@ function AppController($log, $timeout, AppConstant) {
         vm.numberTwo = getRandomInt(vm.calcBase);
         vm.calcResult = undefined;
         vm.calcResultIsCorrect = undefined;
+
+        angular.element('#calcResult').focus();
     }
 
     function checkResult() {
